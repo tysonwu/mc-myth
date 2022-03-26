@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('df.csv')
 df['increment'] = df['informed_score'] - df['random_score']
 
-# fig = px.density_heatmap(df, x='al', y='asl', z='increment', histfunc='avg')
-fig = px.density_heatmap(df, x='kl', y='asl', z='increment', histfunc='avg')
+# fig = px.density_heatmap(df, x='al', y='acl', z='increment', histfunc='avg')
+fig = px.density_heatmap(df, x='kl', y='acl', z='increment', histfunc='avg')
 # fig = px.density_heatmap(df, x='kl', y='al', z='increment', histfunc='avg')
 fig.show()
 
