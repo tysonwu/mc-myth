@@ -12,8 +12,8 @@ def get_student_ability(seed, simulation_seed):
     rng = default_rng(seed+simulation_seed)
     knowledge_level = rng.uniform(0.5, 1)
     attempt_level = rng.uniform(0.25, 1)
-    attempt_succeed_level = rng.uniform(0.1, 0.6)
-    return knowledge_level, attempt_level, attempt_succeed_level
+    attempt_correct_level = rng.uniform(0.1, 0.6)
+    return knowledge_level, attempt_level, attempt_correct_level
 
 def main():
     # test the functionalities
@@ -36,12 +36,12 @@ def main():
     als = np.empty(n_students)
     als[:] = np.nan
 
-    asls = np.empty(n_students)
-    asls[:] = np.nan
+    acls = np.empty(n_students)
+    acls[:] = np.nan
 
     for n in tqdm(range(n_students)):
-        knowledge_level, attempt_level, attempt_succeed_level = get_student_ability(seed=n, simulation_seed=simulation_seed)
-        student = Student(n, knowledge_level, attempt_level, attempt_succeed_level)
+        knowledge_level, attempt_level, attempt_correct_level = get_student_ability(seed=n, simulation_seed=simulation_seed)
+        student = Student(n, knowledge_level, attempt_level, attempt_correct_level)
         informed_ans, random_ans = student.attempt(exam)
 
         # calculate score
@@ -51,7 +51,7 @@ def main():
         # mark their metadata
         kls[n] = knowledge_level
         als[n] = attempt_level
-        asls[n] = attempt_succeed_level
+        acls[n] = attempt_correct_level
 
     # print(f'{informed_ans=}')
     # print(f'{random_ans=}')
@@ -65,7 +65,7 @@ def main():
     print(f'{mean_informed_scores=}')
     print(f'{mean_random_scores=}')
 
-    df = pd.DataFrame({'kl': kls, 'al': als, 'asl': asls, 'informed_score': informed_scores, 'random_score': random_scores})
+    df = pd.DataFrame({'kl': kls, 'al': als, 'acl': acls, 'informed_score': informed_scores, 'random_score': random_scores})
     df.to_csv('df.csv', index=False)
 
 if __name__ == '__main__':
