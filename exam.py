@@ -11,7 +11,6 @@ class Exam:
 
     N_QUESTIONS = 45
     N_QUESTIONS_A = 30
-    N_QUESTIONS_B = 25
     
     def __init__(self, seed: int):
         self.seed = seed
